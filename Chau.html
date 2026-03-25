@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDG 17: Generative Network Art</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+  <link rel="stylesheet" href="https://use.typekit.net/wza6swk.css">
+
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      color: #FFFFFF;
+      overflow: hidden;
+      /* REMOVED: display: flex and flex-direction: column */
+    }
+
+    #canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      /* Sits behind the text */
+    }
+
+    #ui-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      display: grid;
+      /* 1. Swap the column widths: 60% left (empty), 40% right (text) */
+      grid-template-columns: 60% 40%;
+      grid-template-rows: 80px 1fr 100px;
+      grid-template-areas:
+        "topTitle topTitle"
+        ". main"
+        /* 2. Move 'main' to the second column */
+        "bottomQuote bottomQuote";
+      padding: 20px;
+    }
+
+    .main-content {
+      grid-area: main;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 320px;
+      max-width: 50%;
+      /* Increased for better fit on the right */
+      height: fit-content;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      font-family: "new-spirit", serif;
+      font-weight: 500;
+      font-style: normal;
+      /* 3. Anchor the box to the RIGHT of its column */
+      justify-self: end;
+      align-self: center;
+      margin-right: 40px;
+      /* Adds some breathing room from the edge */
+
+      pointer-events: auto;
+    }
+
+    .top-title {
+      grid-area: topTitle;
+      /* Centers the container horizontally in the grid area */
+      display: flex;
+      justify-content: center; 
+      align-items: flex-start;
+      padding-top: 10px; /* Optional: nudge it down from the very top */
+    }
+
+    .header-img {
+      max-height: 70px; /* Limits height to fit your grid-template-rows */
+      width: auto;      /* Maintains aspect ratio */
+      display: block;
+    }
+
+    .main-title {
+      font-size: 1.3rem;
+      margin: 0 0 10px 0;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      text-align: left;
+    }
+
+
+    .small-body {
+      font-family: "mulish-variable", sans-serif;
+      font-variation-settings: "wght" 200;
+
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
+      text-align: left;
+    }
+
+    .bottom-quote {
+      grid-area: bottomQuote;
+      text-align: center;
+      width: 100%;
+      align-self: end;
+      padding-bottom: 20px;
+      justify-self: center;
+    }
+
+    .quote-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .quote-text {
+      font-family: "new-spirit", serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .author {
+      font-family: "new-spirit", serif;
+      font-weight: 500;
+      display: block;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="canvas-container"></div>
+
+  <div id="ui-overlay">
+<div class="top-title">
+  <img src="header.png" alt="SDG 17: Partnerships for the Goals" class="header-img">
+</div>
+    <div class="main-content">
+      <h1 class="main-title">Connect 2 Partners, Share 1 Solution Now</h1>
+      <p class="small-body">Find two international peers, host an online discussion, and share one simple, low-cost idea
+        that can be started in a week to address a shared local challenge in your neighborhood.</p>
+    </div>
+
+    <div class="bottom-quote">
+      <div class="quote-container">
+        <span class="quote-text">"If we have no peace, it is because we have forgotten that we belong to each
+          other."</span>
+        <span class="author">Mother Teresa</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="sketch.js"></script>
+</body>
+
+</html>
